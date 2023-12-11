@@ -39,6 +39,12 @@ public interface AmapService {
     AmapDistrictService getAmapDistrictService();
 
     /**
+     * 获取行政区域查询接口
+     * @return 行政区域查询接口
+     */
+    AmapDistanceService getAmapDistanceService();
+
+    /**
      * 发送get请求
      * @param url 请求地址
      * @param jsonParam json对象

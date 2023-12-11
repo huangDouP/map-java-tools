@@ -1,9 +1,6 @@
 package club.mrxiao.amap.api.impl;
 
-import club.mrxiao.amap.api.AmapDistrictService;
-import club.mrxiao.amap.api.AmapGeocodeService;
-import club.mrxiao.amap.api.AmapService;
-import club.mrxiao.amap.api.AmapWeatherService;
+import club.mrxiao.amap.api.*;
 import club.mrxiao.amap.config.AmapConfig;
 import club.mrxiao.common.error.AmapError;
 import club.mrxiao.common.error.AmapErrorException;
@@ -33,6 +30,7 @@ public class AmapServiceImpl implements AmapService {
     private AmapGeocodeService amapGeocodeService = new AmapGeocodeServiceImpl(this);
     private AmapWeatherService amapWeatherService = new AmapWeatherServiceImpl(this);
     private AmapDistrictService amapDistrictService = new AmapDistrictServiceImpl(this);
+    private AmapDistanceService amapDistanceService = new AmapDistanceServiceImpl(this);
 
 
     @Override
@@ -56,11 +54,16 @@ public class AmapServiceImpl implements AmapService {
     }
 
     @Override
+    public AmapDistanceService getAmapDistanceService() {
+        return this.amapDistanceService;
+    }
+
+    @Override
     public String get(String url, JSONObject jsonParam) throws AmapErrorException {
         String queryString = this.toQueryString(jsonParam);
         url = urlJoint(url);
         if(StrUtil.isNotBlank(queryString)){
-            url = url+queryString;
+            url = url + queryString;
         }
         String result = HttpUtil.get(url);
         log.debug("\n【请求地址】: {}\n【响应数据】：{}", url, result);
